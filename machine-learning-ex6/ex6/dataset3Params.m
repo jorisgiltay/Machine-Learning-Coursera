@@ -27,25 +27,27 @@ sigma = 0.3;
 C_vec = [0.01, 0.03, 0.1 , 0.3, 1 , 3 , 10, 30];
 sigma_vec = [0.01, 0.03, 0.1 , 0.3, 1 , 3 , 10, 30];
 
-Result = zeros(8);
+##Result = zeros(8);
+##
+##
+##for i = 1:size(C_vec,2)
+##  for k = 1:size(sigma_vec,2)
+##    model= svmTrain(X, y, C_vec(i), @(x1, x2) gaussianKernel(x1, x2, sigma_vec(k))); 
+##    
+##    predictions = svmPredict(model, Xval, yval);
+##    Result(i,k) = mean(double(predictions ~= yval));
+##
+##  end
+##end
+##
+##minResult = min(Result(:));
+##[row,col] = find(Result==minResult);
+##
+##C = C_vec(row);
+##sigma = sigma_vec(col);
 
-
-for i = 1:size(C_vec,2)
-  for k = 1:size(sigma_vec,2)
-    model= svmTrain(X, y, C_vec(i), @(x1, x2) gaussianKernel(x1, x2, sigma_vec(k))); 
-    
-    predictions = svmPredict(model, Xval, yval);
-    Result(i,k) = mean(double(predictions ~= yval));
-
-  end
-end
-
-minResult = min(Result(:));
-[row,col] = find(Result==minResult);
-
-C = C_vec(row);
-sigma = sigma_vec(col);
-
+C = 1;
+sigma = 0.1;
 % =========================================================================
 
 end
